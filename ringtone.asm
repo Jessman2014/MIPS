@@ -31,7 +31,8 @@ MAIN:  		la $a0, amoPrompt					#load prompt
 		addi $a0, $zero, 5000					#pauses for 5 seconds
 		addi $v0, $zero, 32					# set up to pause
 		syscall							# pause
-FOR1:		beq $s0, $zero, END					# repetitions == 0 go to end
+FOR1:		slt $t0, $zero, $s0					#repetitions > 0
+		beq $t0, $zero, END					# repetitions <= 0 go to end
 		teq $zero, $zero					#immediately trap because $zero == $zero
 		addi $s0, $s0, -1					# $s0--
 		j FOR1							#loop
